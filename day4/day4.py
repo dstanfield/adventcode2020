@@ -11,9 +11,9 @@ def main():
     initList = load_file("input.txt")
     for x in initList:
         if re.match('([a-z]{3}):(\S+)( |\n)',x):
-            chunk += x
+            chunk += " | " + x + " | "
         elif re.match("\n", x):
-            print("yes")
+            x.replace("\n", " ")
             result = processChunk(chunk)
             if result == True:
                 success +=1
@@ -34,14 +34,16 @@ def load_file(file):
 
 # thanks buso now I can't unsee it
 def processChunk(chonk):
+    print(chonk)
     valid_fields = [
-        "hgt:",
-        "eyr:",
-        "byr:",
-        "iyr:",
-        "hcl:",
-        "ecl:",
-        "pid:",
+        "hgt:(1([5-8][0-9]|9[0-3])cm|((59)|(6[0-9])|(7[0-6]))in)( |\n)",
+
+        "eyr:20(30|2[0-9])( |\n)",
+        "byr:(19[2-9][0-9]|200[0-2])( |\n)",
+        "iyr:20(20|1[0-9])( |\n)",
+        "hcl:#[0-9a-f]{6}( |\n)",
+        "ecl:(amb|blu|brn|gry|grn|hzl|oth)( |\n)",
+        "pid:\\d{9}( |\n)",
         ]
 
     for x in valid_fields:
